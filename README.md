@@ -38,6 +38,7 @@ grunt.initConfig({
 
 #### options.fonts
 Type: `String`
+
 Default value: `'fonts.yml'`
 
 YAML file with fonts that you need to download
@@ -58,6 +59,7 @@ Will download roboto-bold.ttf, roboto-black.svg, roboto-black.eot, all roboto-it
 
 #### options.dest
 Type: `String`
+
 Default value: `'fonts/'`
 
 Folder into which fonts will be downloaded
@@ -65,26 +67,31 @@ Folder into which fonts will be downloaded
 
 #### options.host
 Type: `String`
+
 Default value: `'localhost'`
 
 
 #### options.port
 Type: `Number`
+
 Default value: `21`
 
 
 #### options.username
 Type: `String`
+
 Default value: `none`
 
 
 #### options.password
 Type: `String`
+
 Default value: `none`
 
 
 #### options.debug
 Type: `Boolean`
+
 Default value: `false`
 
 
