@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "-"
+    "url": "https://github.com/konstantin24121/grunt-font-loader"
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/konstantin24121/grunt-font-loader/issues"
   },
   "licenses": [
     {
@@ -22,9 +22,6 @@
   ],
   "engines": {
     "node": ">= 0.8.0"
-  },
-  "scripts": {
-    "test": "grunt test"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "^0.9.2",
@@ -36,9 +33,12 @@
     "grunt": "~0.4.5"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "ftp",
+    "fonts"
   ],
   "dependencies": {
     "jsftp": "^1.5.3"
-  }
+  },
+  "analyze": true
 }
