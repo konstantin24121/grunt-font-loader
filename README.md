@@ -52,9 +52,15 @@ roboto:
     - eot
   italic: all
 jikharev: all
+panton:
+   all: ttf
+nova:
+   all: 
+     - ttf
+     - eot
 ```
 
-Will download roboto-bold.ttf, roboto-black.svg, roboto-black.eot, all roboto-italic and all jikharev fonts.
+Will download roboto-bold.ttf, roboto-black.svg, roboto-black.eot, all roboto-italic, all jikharev fonts, all panton with ttf filename extension, all nova with ttf and eot filename extension.
 
 
 #### options.dest

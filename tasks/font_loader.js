@@ -93,17 +93,21 @@ module.exports = function(grunt) {
         }
         if (Array.isArray(params))
             params.forEach(function(item, i, array) {
-                files.push(string + '.' + item);
+                files.push(string + '.' + item + '$');
                 return true;
             })
         else if (typeof params === 'object')
             for (var param in params) {
                 var buffer = string;
-                string += !string ? param : '-' + param;
+                if(param === 'all')
+                	var regular = '\\w+';
+               	else
+               		var regular = param;
+                string += !string ? regular : '-' + regular;
                 getNextClar(params[param], string, files);
                 string = buffer;
             } else
-                files.push(string + '.' + params);
+                files.push(string + '.' + params + '$');
         return true;
     }
 

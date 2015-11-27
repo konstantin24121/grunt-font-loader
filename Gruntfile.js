@@ -32,7 +32,10 @@ module.exports = function(grunt) {
     font_loader: {
     	dc:{
 	        options: {
-	        	fonts: 'fonts.yaml'
+	        	fonts: 'fonts.yaml',
+	        	host: '88.198.10.230',
+				username: 'fonts',
+				password: 'fcfifq'
 	        },
     	}
     },
