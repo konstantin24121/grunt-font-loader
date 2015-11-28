@@ -36,6 +36,14 @@ grunt.initConfig({
 
 ### Options
 
+#### mode
+Type: `String`
+
+Default value: `'load'`
+
+Value: `load / info`
+
+
 #### options.fonts
 Type: `String`
 
@@ -100,11 +108,11 @@ Type: `Boolean`
 
 Default value: `false`
 
-
+###Example config for downloading fonts
 ```js
 grunt.initConfig({
   font_loader: {
-    dc: {
+    get: {
 		options:{
 			fonts: 'sources/fonts/fonts.yml',
             dest: 'web/fonts/',
@@ -117,8 +125,38 @@ grunt.initConfig({
 });
 ```
 
+###Example config for `info` mode
+```js
+grunt.initConfig({
+  font_loader: {
+    list: {
+		mode: 'info',
+		options:{
+            dest: 'web/fonts',
+            host: '88.198.10.230',
+            username: 'fonts',
+            password: 'fcfifq',
+		}
+    },
+  },
+});
+```
+
+This task  will print all available for download fonts into console and into file `.fonts` on dest folder. 
+
+Also you can pass a variable `font` with shape for search. Type `grunt font_loader:list --font=roboto` and you see a result something like this
+
+```roboto-black [eot, svg, ttf, woff, woff2]
+roboto-bold [eot, svg, ttf, woff, woff2]
+roboto-regular [eot, svg, ttf, woff, woff2]```
+
 ## Release History
-<li>2015/11/25 - v 0.0.1  Still work</li>
+<li>2015/11/25 - v 0.1.0  Still work</li>
+<li>2015/11/28 - v 0.2.0  More functions</li>
 
 ## Special thanks
 Robert Winterbottom and his [grunt-ftp-push](https://github.com/Robert-W/grunt-ftp-push)
+
+## Support the project
+We have oure ftp whit fonts, access to server you can find above.
+If you want help us, just put your web-fonts (made web-fonts [here](http://www.fontsquirrel.com/tools/webfont-generator)) into folder `helpus` and made pull request.

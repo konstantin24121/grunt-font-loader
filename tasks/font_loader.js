@@ -146,6 +146,7 @@ module.exports = function(grunt) {
     function downloadFiles() {
         grunt.file.mkdir(options.dest);
         var dest = normalizeDir(options.dest);
+
         function download() {
             if (uploadFiles.length < 1) {
                 closeConnection();
@@ -165,7 +166,76 @@ module.exports = function(grunt) {
         download();
     }
 
+    /**
+     * Get list from server
+     * @param  {String} pattern pattern for search
+     */
+    function getFilesList(pattern) {
+    	//If pattern empty return all avaliable fonts
+        if (pattern === undefined || pattern === '') {
+            formatingFontsArray(serverFonts);
+            closeConnection();
+            return; // We are completed, close connection and end the program
+        }
+
+        var serverFiles = [],
+            preg = new RegExp('[\\w\\-\\.]*' + pattern + '[\\w\\-\.]*');
+
+
+        function regular() {
+            if (serverFonts.length < 1) {
+                if (serverFiles.length !== 0)
+                    formatingFontsArray(serverFiles);
+                else
+                    grunt.log.warn('We haven\'t any suitable fonts');
+                closeConnection();
+                return; // We are completed, close connection and end the program
+            }
+            var file = serverFonts.pop();
+            if (preg.test(file)) {
+                serverFiles.push(file);
+            }
+            regular();
+        }
+        regular();
+    }
+
+    /**
+     * Formating array with font into better readding
+     * @param  {Array} array
+     */
+    function formatingFontsArray(array) {
+        var fileContent = '',
+        	file = [],
+            buffer = array[0].split('.')[0],
+            exp = [];
+
+        function writeResult() {
+        	var str = buffer + ' [' + exp.join(', ') + ']';
+        	fileContent += str + '\n';
+            grunt.log.ok(str);
+        }
+
+        array.forEach(function(item, i, arr) {
+            file = item.split('.');
+            if (buffer == file[0]) {
+                exp.push(file[1]);
+            } else {
+                writeResult();
+                buffer = file[0];
+                exp = [];
+                exp.push(file[1]);
+            }
+        })
+        writeResult();
+
+        //Put last search result into file
+        grunt.file.mkdir(options.dest);
+        grunt.file.write(normalizeDir(options.dest) + '.fonts', fileContent);
+    }
+
     grunt.registerMultiTask('font_loader', 'Get fonts from our FTP', function() {
+        var mode = this.data.mode || 'load';
         options = this.options({
             fonts: 'fonts.yml',
             dest: 'fonts/',
@@ -176,17 +246,19 @@ module.exports = function(grunt) {
             debug: false,
         });
 
-        var filepath = options.fonts;
-        //Проверка на сущствование файла-манифеста
-        if (!grunt.file.exists(filepath)) {
-            grunt.log.error('Source file "' + filepath + '" not found.');
-            return false;
+        if (mode === 'load') {
+            var filepath = options.fonts;
+            //Проверка на сущствование файла-манифеста
+            if (!grunt.file.exists(filepath)) {
+                grunt.log.error('Source file "' + filepath + '" not found.');
+                return false;
+            }
+
+            //readFrom YAML-file
+            var yaml = grunt.file.readYAML(filepath);
+
+            getNextClar(yaml, '', files = []);
         }
-
-        //readFrom YAML-file
-        var yaml = grunt.file.readYAML(filepath);
-
-        getNextClar(yaml, '', files = []);
 
         done = this.async();
 
@@ -223,7 +295,16 @@ module.exports = function(grunt) {
                 res.forEach(function(file) {
                     serverFonts.push(file.name);
                 });
-                createDownloadList();
+                if (mode === 'load') {
+                    createDownloadList();
+                } else if (mode === 'info') {
+                    var pattern = grunt.option("font");
+                    getFilesList(pattern);
+                } else {
+                    grunt.log.error('Task haven\'t mode ' + mode + '. Why you need him?');
+                    closeConnection();
+	                return; // We are completed, close connection and end the program
+                }
             });
         });
 
