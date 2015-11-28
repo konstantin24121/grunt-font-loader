@@ -108,6 +108,7 @@ Type: `Boolean`
 
 Default value: `false`
 
+
 ###Example config for downloading fonts
 ```js
 grunt.initConfig({
