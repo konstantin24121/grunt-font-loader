@@ -40,6 +40,14 @@ module.exports = function(grunt) {
     }
 
     /**
+     * @param {string} dest - path to directory
+     * @return {string} - Return dest with trailing slash if not present
+     */
+    function normalizeDir(dest) {
+        return (dest.charAt(dest.length - 1) !== '/' ? dest + '/' : dest);
+    }
+
+    /**
      * @return {Object} returns an object containing a username and password
      */
     function getCredentials() {
@@ -99,10 +107,10 @@ module.exports = function(grunt) {
         else if (typeof params === 'object')
             for (var param in params) {
                 var buffer = string;
-                if(param === 'all')
-                	var regular = '\\w+';
-               	else
-               		var regular = param;
+                if (param === 'all')
+                    var regular = '\\w+';
+                else
+                    var regular = param;
                 string += !string ? regular : '-' + regular;
                 getNextClar(params[param], string, files);
                 string = buffer;
@@ -126,8 +134,8 @@ module.exports = function(grunt) {
                     // serverFonts.remove(item);
                 }
             })
-            if(!check)
-            	grunt.log.warn('You have no suitable fonts at pattern ' + item);
+            if (!check)
+                grunt.log.warn('You have no suitable fonts at pattern ' + item);
         })
         downloadFiles();
     }
@@ -137,16 +145,16 @@ module.exports = function(grunt) {
      */
     function downloadFiles() {
         grunt.file.mkdir(options.dest);
-
+        var dest = normalizeDir(options.dest);
         function download() {
             if (uploadFiles.length < 1) {
                 closeConnection();
                 return; // We are completed, close connection and end the program
             }
             var file = uploadFiles.pop();
-            grunt.file.write(options.dest + file, '');
+            grunt.file.write(dest + file, '');
 
-            ftp.get(file, options.dest + file, function(hadErr) {
+            ftp.get(file, dest + file, function(hadErr) {
                 if (hadErr) {
                     grunt.log.error('There was an error retrieving the font ' + file);
                 } else
