@@ -124,9 +124,11 @@ module.exports = function(grunt) {
      */
     function createDownloadList() {
         uploadFiles = [];
+    
+
         files.forEach(function(item, i, arr) {
             var preg = new RegExp(item);
-            var check = false;
+            var check = false;    
             serverFonts.forEach(function(item, i, arr) {
                 if (preg.test(item)) {
                     uploadFiles.push(item);
@@ -137,7 +139,20 @@ module.exports = function(grunt) {
             if (!check)
                 grunt.log.warn('You have no suitable fonts at pattern ' + item);
         })
+
         downloadFiles();
+    }
+
+    /**
+     * Remove unused files
+     * @param  {array} files files need to remove
+     */
+    function removeFonts(files){
+    	var dest = normalizeDir(options.dest);
+    	files.forEach(function(item, i, arr){
+			grunt.file.delete(dest + item);
+			grunt.log.warn('File ' + item + ' remove.');
+    	})
     }
 
     /**
@@ -146,22 +161,39 @@ module.exports = function(grunt) {
     function downloadFiles() {
         grunt.file.mkdir(options.dest);
         var dest = normalizeDir(options.dest);
-
+        var exsFiles = grunt.file.expand({'cwd':dest},'*.*');
         function download() {
             if (uploadFiles.length < 1) {
+            	//Если установлена опция очистки лишних шрифтов
+            	if(options.clearUnused)
+	            	removeFonts(exsFiles);
                 closeConnection();
                 return; // We are completed, close connection and end the program
             }
             var file = uploadFiles.pop();
-            grunt.file.write(dest + file, '');
 
-            ftp.get(file, dest + file, function(hadErr) {
-                if (hadErr) {
-                    grunt.log.error('There was an error retrieving the font ' + file);
-                } else
-                    grunt.log.ok('File ' + file + ' transferred successfully');
-                download();
-            });
+            //Поиск соответствий файлов в папке и тех что мы собрались скачивать
+            //в случае если он там есть удаляем его из 
+            //массива который будем использовать для очистки
+            var index = exsFiles.indexOf(file);
+            if(index > -1)
+            	exsFiles.splice(index, 1);
+
+            //Если файл уже есть, качать его бессмысленно
+            if(!grunt.file.exists(dest + file)){
+	            grunt.file.write(dest + file, '');
+
+	            ftp.get(file, dest + file, function(hadErr) {
+	                if (hadErr) {
+	                    grunt.log.error('There was an error retrieving the font ' + file);
+	                } else
+	                    grunt.log.ok('File ' + file + ' transferred successfully');
+	                download();
+	            });
+            }else{
+            	grunt.log.ok('File ' + file + ' allready exist.');
+            	download();
+            }
         }
         download();
     }
@@ -243,6 +275,7 @@ module.exports = function(grunt) {
             port: 21,
             username: '',
             password: '',
+            clearUnused: false,
             debug: false,
         });
 
