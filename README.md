@@ -116,6 +116,7 @@ Default value: `false`
 
 
 ###Example config for downloading fonts
+
 `js
 grunt.initConfig({
   font_loader: {
