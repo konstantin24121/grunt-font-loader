@@ -7,22 +7,22 @@ This plugin requires Grunt `~0.4.5`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
-`shell
+```shell
 npm install grunt-font-loader --save-dev
-`
+```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
-`js
+```js
 grunt.loadNpmTasks('grunt-font-loader');
-`
+```
 
 ## The "font_loader" task
 
 ### Overview
 In your project's Gruntfile, add a section named `font_loader` to the data object passed into `grunt.initConfig()`.
 
-`js
+```js
 grunt.initConfig({
   font_loader: {
     your_target: {
@@ -32,7 +32,7 @@ grunt.initConfig({
     },
   },
 });
-`
+```
 
 ### Options
 
@@ -52,7 +52,7 @@ Default value: `'fonts.yml'`
 YAML file with fonts that you need to download
 
 Example
-`YAML
+```YAML
 roboto:
   bold: ttf
   black: 
@@ -66,7 +66,7 @@ nova:
    all: 
      - ttf
      - eot
-`
+```
 
 Will download roboto-bold.ttf, roboto-black.svg, roboto-black.eot, all roboto-italic, all jikharev fonts, all panton with ttf filename extension, all nova with ttf and eot filename extension.
 
@@ -117,7 +117,7 @@ Default value: `false`
 
 ###Example config for downloading fonts
 
-`js
+```js
 grunt.initConfig({
   font_loader: {
     get: {
@@ -131,11 +131,11 @@ grunt.initConfig({
     },
   },
 });
-`
+```
 
 ###Example config for `info` mode
 
-`js
+```js
 grunt.initConfig({
   font_loader: {
     list: {
@@ -149,15 +149,16 @@ grunt.initConfig({
     },
   },
 });
-`
+```
 
 This task  will print all available for download fonts into console and into file `.fonts` on dest folder. 
 
 Also you can pass a variable `font` with shape for search. Type `grunt font_loader:list --font=roboto` and you see a result something like this
 
-`roboto-black [eot, svg, ttf, woff, woff2]
+```roboto-black [eot, svg, ttf, woff, woff2]
 roboto-bold [eot, svg, ttf, woff, woff2]
-roboto-regular [eot, svg, ttf, woff, woff2]`
+roboto-regular [eot, svg, ttf, woff, woff2]
+```
 
 ## Release History
 

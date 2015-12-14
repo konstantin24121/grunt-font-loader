@@ -7,22 +7,22 @@
 
 Если вы еще не использовали [Grunt](http://gruntjs.com/), прочитайте [Getting Started](http://gruntjs.com/getting-started) руководство, в котором объясняyj как создать [Gruntfile](http://gruntjs.com/sample-gruntfile) и как устанавливать плагины. После того как вы разберетесь с этим, вы можeте установить плагин командой:
 
-`shell
+```shell
 npm install grunt-font-loader --save-dev
-`
+```
 
 Установив плагин, его так же необходимо подключить в Gruntfile строкой:
 
-`js
+```js
 grunt.loadNpmTasks('grunt-font-loader');
-`
+```
 
 ## Задача "font_loader"
 
 ### Кратко
 В файле Gruntfile вашего проекта, добавте массив `font_loader` в данные объекта передаваемого в `grunt.initConfig()`.
 
-`js
+```js
 grunt.initConfig({
   font_loader: {
     your_target: {
@@ -32,7 +32,7 @@ grunt.initConfig({
     },
   },
 });
-`
+```
 
 ### Настройки
 
@@ -52,7 +52,8 @@ grunt.initConfig({
 YAML-файл с перечисленными шрифтами, которые вы хотите скачать для проекта
 
 Пример такого файла:
-`YAML
+
+```YAML
 roboto:
   bold: ttf
   black: 
@@ -66,7 +67,7 @@ nova:
    all: 
      - ttf
      - eot
-`
+```
 
 Будут скачаны roboto-bold.ttf, roboto-black.svg, roboto-black.eot, roboto-italic всех расширений, jikharev всех расширений, все шрифты panton с расширением ttf, и все nova с расширениями ttf и eot.
 
@@ -116,7 +117,7 @@ nova:
 
 ###Пример настройки задания для загрузки шрифтов
 
-`js
+```js
 grunt.initConfig({
   font_loader: {
     get: {
@@ -130,11 +131,11 @@ grunt.initConfig({
     },
   },
 });
-`
+```
 
 ###Пример настройки задания для режима `info`
 
-`js
+```js
 grunt.initConfig({
   font_loader: {
     list: {
@@ -148,15 +149,17 @@ grunt.initConfig({
     },
   },
 });
-`
+```
 
 Данный режим позволяет вывести все доступные для скачивания шрифты в консоль и в файл `.fonts` помешенный в каталог указанный в `dest`. Доступные на данный момент шрифты можно посмотреть [здесь](https://github.com/konstantin24121/grunt-font-loader/blob/master/AVALIABLEFONTS.md).
 
 Так же вы можeте использовать переменную `font` для поиска нужного вам шрифта. Пример вызова такого вызова `grunt font_loader:list --font=roboto` выведет в консоль и файл что-то вроде того:
 
-`roboto-black [eot, svg, ttf, woff, woff2]
+```
+roboto-black [eot, svg, ttf, woff, woff2]
 roboto-bold [eot, svg, ttf, woff, woff2]
-roboto-regular [eot, svg, ttf, woff, woff2]`
+roboto-regular [eot, svg, ttf, woff, woff2]
+```
 
 ## История версий
 
