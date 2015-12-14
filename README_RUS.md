@@ -7,13 +7,13 @@
 
 Если вы еще не использовали [Grunt](http://gruntjs.com/), прочитайте [Getting Started](http://gruntjs.com/getting-started) руководство, в котором объясняyj как создать [Gruntfile](http://gruntjs.com/sample-gruntfile) и как устанавливать плагины. После того как вы разберетесь с этим, вы можeте установить плагин командой:
 
-```shell
+``` shell
 npm install grunt-font-loader --save-dev
 ```
 
 Установив плагин, его так же необходимо подключить в Gruntfile строкой:
 
-```js
+``` js
 grunt.loadNpmTasks('grunt-font-loader');
 ```
 
@@ -22,7 +22,7 @@ grunt.loadNpmTasks('grunt-font-loader');
 ### Кратко
 В файле Gruntfile вашего проекта, добавте массив `font_loader` в данные объекта передаваемого в `grunt.initConfig()`.
 
-```js
+``` js
 grunt.initConfig({
   font_loader: {
     your_target: {
@@ -53,7 +53,7 @@ YAML-файл с перечисленными шрифтами, которые �
 
 Пример такого файла:
 
-```YAML
+``` YAML
 roboto:
   bold: ttf
   black: 
@@ -117,7 +117,7 @@ nova:
 
 ###Пример настройки задания для загрузки шрифтов
 
-```js
+``` js
 grunt.initConfig({
   font_loader: {
     get: {
@@ -135,7 +135,7 @@ grunt.initConfig({
 
 ###Пример настройки задания для режима `info`
 
-```js
+``` js
 grunt.initConfig({
   font_loader: {
     list: {
@@ -155,8 +155,7 @@ grunt.initConfig({
 
 Так же вы можeте использовать переменную `font` для поиска нужного вам шрифта. Пример вызова такого вызова `grunt font_loader:list --font=roboto` выведет в консоль и файл что-то вроде того:
 
-```
-roboto-black [eot, svg, ttf, woff, woff2]
+``` roboto-black [eot, svg, ttf, woff, woff2]
 roboto-bold [eot, svg, ttf, woff, woff2]
 roboto-regular [eot, svg, ttf, woff, woff2]
 ```
