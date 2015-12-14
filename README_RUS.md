@@ -162,6 +162,7 @@ roboto-regular [eot, svg, ttf, woff, woff2]`
 
 <li>2015/11/25 - v 0.1.0  Заработало</li>
 <li>2015/11/28 - v 0.2.0  Немного больше функций</li>
+<li>2015/12/14 - v 0.3.0  Никакой больше лишней загрузки. Можно очищать директорию от неиспользуемых шрифтов</li>
 
 ## Особая благодарность
 Robert Winterbottom и его плагину [grunt-ftp-push](https://github.com/Robert-W/grunt-ftp-push)
