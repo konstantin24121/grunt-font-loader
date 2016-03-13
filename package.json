@@ -2,7 +2,7 @@
   "name": "grunt-font-loader",
   "description": "Get fonts from our FTP",
   "version": "0.3.1",
-  "homepage": "",
+  "homepage": "https://github.com/konstantin24121/grunt-font-loader",
   "author": {
     "name": "Konstantin",
     "email": "konstantin24121@gmail.com"
@@ -11,6 +11,7 @@
     "type": "git",
     "url": "https://github.com/konstantin24121/grunt-font-loader"
   },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/konstantin24121/grunt-font-loader/issues"
   },
@@ -20,6 +21,9 @@
       "url": "/blob/master/LICENSE-MIT"
     }
   ],
+  "scripts": {
+    "test": "grunt test"
+  },
   "engines": {
     "node": ">= 0.8.0"
   },
@@ -30,7 +34,7 @@
     "grunt": "~0.4.5"
   },
   "peerDependencies": {
-    "grunt": "~0.4.5"
+    "grunt": ">=0.4.0"
   },
   "keywords": [
     "gruntplugin",
